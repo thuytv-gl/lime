@@ -4,6 +4,8 @@ const { handleCreateOrder } = require('../../../service/incoming-orders-handler'
 const CONN_URL = process.env.AMQP_URL || 'amqp://localhost';
 const internalOrdersExchange = 'internal-order-exchange';
 
+const listeners = [];
+
 amqp.connect(CONN_URL, function(err, connection) {
   if (err) {
     throw err;
@@ -28,10 +30,20 @@ amqp.connect(CONN_URL, function(err, connection) {
       channel.bindQueue(q.queue, internalOrdersExchange, 'order.create');
 
       channel.consume(q.queue, async (msg) => {
-        await handleCreateOrder(JSON.parse(msg.content.toString()));
+        for (let i = 0, len = listeners.length; i < len; i++) {
+          await listeners[i](JSON.parse(msg.content.toString()))
+        }
         channel.ack(msg);
       }, { noAck: false })
     });
 
   });
 });
+
+module.exports = {
+  addHandler(callback) {
+    if (typeof callback === 'function') {
+      listeners.push(callback);
+    }
+  }
+}

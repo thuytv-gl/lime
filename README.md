@@ -9,6 +9,7 @@
 - Container: Docker
 
 ## Suggested tech stack
+- OS: Linux (or windows WSL)
 - Database: Mysql
 - Language: Nodejs + javascript
 - Framework: ExpressJS
@@ -20,3 +21,21 @@
 - Apigateway: Nginx
 
 ## Services folder structure
+```tree
+.
+├── app
+│   ├── api
+│   │   ├── http
+│   │   │   ├── client          # restful client to other services
+│   │   │   └── server          # restful server
+│   │   ├── rabbitmq
+│   │   │   ├── in              # broker consumers
+│   │   │   └── out             # brocker publishers
+│   │   └── sqlite              # database utilities
+│   └── service
+└── tests
+    ├── data                    # mock data
+    └── features
+        ├── step_definitions    # cucumber steps definitions
+        └── support             # services mocking
+```

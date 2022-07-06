@@ -1,0 +1,30 @@
+[
+  {
+    "_id": "62c55ba1ec0e600b63e16cba",
+    "index": 0,
+    "guid": "78e01edc-d478-4f22-a8fe-941b7bd2710f",
+    "isActive": false,
+    "balance": "$2,865.96"
+  },
+  {
+    "_id": "62c55ba18b5287cba0a75c77",
+    "index": 1,
+    "guid": "8c6f9d1e-9d03-415d-81db-e44e60be4002",
+    "isActive": false,
+    "balance": "$3,151.36"
+  },
+  {
+    "_id": "62c55ba105b0c6404199af05",
+    "index": 2,
+    "guid": "ec5ba5a1-e0f0-41c3-a3ae-0a82b09e7399",
+    "isActive": true,
+    "balance": "$3,768.31"
+  },
+  {
+    "_id": "62c55ba19d69e11f0f0ccba4",
+    "index": 3,
+    "guid": "9c3ee728-b296-4642-92f1-56316baf5a0f",
+    "isActive": false,
+    "balance": "$2,804.35"
+  }
+]

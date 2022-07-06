@@ -1,3 +1,4 @@
+const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const express = require('express');
 const asyncHandler = require('express-async-handler');
@@ -14,14 +15,19 @@ const logger = createLogger(require.main.filename);
  * @description available enpoints goes here
  */
 function initRoutes(app) {
-  app.get('/order', asyncHandler(orders.createOrder));
   app.post('/order', asyncHandler(orders.createOrder));
+  app.get('/order/:orderId', asyncHandler(orders.getOrderById));
 }
 
 function createServer() {
   const app = express();
 
   app.use(helmet());
+  // parse application/x-www-form-urlencoded
+  app.use(bodyParser.urlencoded({ extended: false }))
+
+  // parse application/json
+  app.use(bodyParser.json())
 
   // extract correlationId from header
   // create new one if not exists
@@ -49,7 +55,7 @@ function createServer() {
 
   app.use((err, req, res, next) => {
     logger.error({ msg: err, correlationId: req.correlationId });
-    res.status(500).send('Something broke!')
+    next();
   })
 
   const port = process.env.PORT || 3000;

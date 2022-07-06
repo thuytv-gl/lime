@@ -14,7 +14,7 @@ amqp.connect(CONN_URL, function (err, conn) {
   });
 });
 
-module.exports.sendCreateOrder = async (data, correlationId) => {
+module.exports.placeOrder = async (data, correlationId) => {
   ch && ch.publish(
     internalOrdersExchange,
     'order.create',

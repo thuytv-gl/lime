@@ -10,3 +10,5 @@
 [_] setup database (thinking about sqlite)
 [_] document apis with swagger
 [_] setup api-gateway with nginx
+[_] implement user authentication
+[_] use Husky to add pre-commit hooks (maybe run test before commit)
