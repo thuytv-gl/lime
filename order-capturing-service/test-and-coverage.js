@@ -32,7 +32,7 @@ async function run() {
 
   await waitForService('http://localhost:3000/ping');
   childProcess.execSync('npm run test');
-  // http.get('http://localhost:3000/sigterm', { method: 'POST'}).on('error', console.log);
+  http.get('http://localhost:3000/sigterm', { method: 'POST'}).on('error', console.log);
 }
 
 run();

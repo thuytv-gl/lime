@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.37% </span>
+                <span class="strong">56.25% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>27/32</span>
+                <span class='fraction'>18/32</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>4/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>25/30</span>
+                <span class='fraction'>18/30</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -164,23 +164,23 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -230,10 +230,10 @@ amqp.connect(CONN_URL, function(err, connection) {
 &nbsp;
       channel.bindQueue(q.queue, internalOrdersExchange, 'order.create');
 &nbsp;
-      channel.consume(q.queue, async (msg) =&gt; {
-        const data = JSON.parse(msg.content.toString());
+      channel.consume(q.queue, <span class="fstat-no" title="function not covered" >as</span>ync (msg) =&gt; {
+        const data = <span class="cstat-no" title="statement not covered" >JSON.parse(msg.content.toString());</span>
 &nbsp;
-        logger.info({
+<span class="cstat-no" title="statement not covered" >        logger.info({</span>
           msg: {
             broker: 'RECEIVED',
             exchange: internalOrdersExchange,
@@ -242,12 +242,12 @@ amqp.connect(CONN_URL, function(err, connection) {
           correlationId: data.correlationId
         });
 &nbsp;
-        try {
-          for (let i = 0, len = listeners.length; i &lt; len; i++) {
-            await listeners[i](data);
+<span class="cstat-no" title="statement not covered" >        try {</span>
+<span class="cstat-no" title="statement not covered" >          for (let i = <span class="cstat-no" title="statement not covered" >0,</span> len = <span class="cstat-no" title="statement not covered" >listeners.length;</span> i &lt; len; i++) {</span>
+<span class="cstat-no" title="statement not covered" >            await listeners[i](data);</span>
           }
-          console.log('[x] ack');
-          channel.ack(msg);
+<span class="cstat-no" title="statement not covered" >          console.log('[x] ack');</span>
+<span class="cstat-no" title="statement not covered" >          channel.ack(msg);</span>
         } catch (error) {
 <span class="cstat-no" title="statement not covered" >          logger.error({ msg: error, correlationId: data.correlationId });</span>
 <span class="cstat-no" title="statement not covered" >          channel.reject(msg, true);</span>
@@ -271,7 +271,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Jul 06 2022 19:23:55 GMT+0700 (Indochina Time)
+                at Wed Jul 06 2022 19:36:48 GMT+0700 (Indochina Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

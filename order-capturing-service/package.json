@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "node app/index.js",
     "test": "cucumber-js tests/features/*.feature",
-    "coverage": "cross-env NODE_ENV=test nyc node app/index.js"
+    "coverage": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter text node app/index.js"
   },
   "keywords": [],
   "author": "",
