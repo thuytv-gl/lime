@@ -8,7 +8,7 @@ const logger = createLogger(__filename);
 let ch = null;
 
 amqp.connect(CONN_URL, function (err, conn) {
-  conn.createChannel(function (err, channel) {
+  conn.createChannel(function (err2, channel) {
     ch = channel;
 
     channel.assertExchange(internalOrdersExchange, 'topic', {
@@ -29,13 +29,15 @@ module.exports.processOrder = async (data, correlationId) => {
     );
 
     logger.info({
-      msg: {
+      msg: JSON.stringify({
         broker: 'SENT',
         exchange: internalOrdersExchange,
         data
-      },
+      }),
       correlationId: correlationId
     });
+  } else {
+    logger.error({ msg: 'Cannot connect to AMQP server', correlationId });
   }
 }
 

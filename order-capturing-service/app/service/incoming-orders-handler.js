@@ -6,8 +6,6 @@ module.exports.handleCreateOrder = async (msg) => {
   const { orderId } = msg.data;
   const order = await orderRepository.getOrderById(orderId);
   const orderingItem = await inventoryClient.getItemById(order.itemId, msg.correlationId);
-  
-  console.log('[x] orderingItem', orderingItem, order);
 
   if (orderingItem.inStock < order.quantity) {
     order.status = 'OOF'; // Out Of Stock

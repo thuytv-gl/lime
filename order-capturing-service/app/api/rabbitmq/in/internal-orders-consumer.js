@@ -35,11 +35,11 @@ amqp.connect(CONN_URL, function(err, connection) {
         const data = JSON.parse(msg.content.toString());
 
         logger.info({
-          msg: {
+          msg: JSON.stringify({
             broker: 'RECEIVED',
             exchange: internalOrdersExchange,
             data
-          },
+          }),
           correlationId: data.correlationId
         });
 
@@ -47,7 +47,6 @@ amqp.connect(CONN_URL, function(err, connection) {
           for (let i = 0, len = listeners.length; i < len; i++) {
             await listeners[i](data);
           }
-          console.log('[x] ack');
           channel.ack(msg);
         } catch (error) {
           logger.error({ msg: error, correlationId: data.correlationId });

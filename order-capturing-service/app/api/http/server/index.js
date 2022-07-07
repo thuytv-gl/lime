@@ -22,11 +22,6 @@ function initRoutes(app) {
 function createServer() {
   const app = express();
 
-  const port = process.env.PORT || 3000;
-  const server = app.listen(port, () => {
-    logger.info({ msg: 'app started at http://localhost:' + port });
-  });
-
   app.use(helmet());
   // parse application/x-www-form-urlencoded
   app.use(bodyParser.urlencoded({ extended: false }))
@@ -60,17 +55,29 @@ function createServer() {
 
   initRoutes(app);
 
-  if (process.env.NODE_ENV === 'test') {
-    app.post('/sigterm', ctx => {
-      server.close();
-      ctx.body = 'Shutting down';
-      process.exit(1);
-    })
-  }
-
   app.use((err, req, res, next) => {
     logger.error({ msg: err, correlationId: req.correlationId });
-  })
+  });
+
+  const port = process.env.PORT || 3000;
+  let server = null;
+
+  return {
+    start() {
+      return new Promise((rs, _) => {
+        server = app.listen(port, () => {
+          logger.info({ msg: 'app started at http://localhost:' + port });
+          rs();
+        });
+      });
+    },
+    stop() {
+      if (server) {
+        server.close();
+        setImmediate(function () { server.emit('close') });
+      }
+    }
+  };
 }
 
 module.exports = createServer;

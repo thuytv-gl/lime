@@ -3,6 +3,12 @@ const internalOrdersConsumer = require('./api/rabbitmq/in/internal-orders-consum
 const createServer = require("./api/http/server");
 const { handleCreateOrder } = require('./service/incoming-orders-handler');
 
-createServer();
-
 internalOrdersConsumer.addHandler(handleCreateOrder);
+const server = createServer();
+
+/* istanbul ignore next */
+if (process.argv.includes('--up')) {
+  server.start();
+}
+
+module.exports = server;
