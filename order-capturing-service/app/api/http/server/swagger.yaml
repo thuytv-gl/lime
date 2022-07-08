@@ -1,0 +1,48 @@
+swagger: "2.0"
+info:
+  description: "Order Capturing Service | to place your orders"
+  version: "1.0.0"
+  title: "Order Capturing"
+basePath: "/order-capturing"
+schemes:
+- "http"
+paths:
+  /order:
+    post:
+      summary: "Place new order"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Details about the order"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            clientId:
+              type: integer
+            itemId:
+              type: integer
+            amount:
+              type: integer
+      responses:
+        "202":
+          description: "Processing order"
+  /order/{orderId}:
+    get:
+      summary: "Get existing order details"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: orderId
+        description: "Details about the order"
+        required: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: "Order details"

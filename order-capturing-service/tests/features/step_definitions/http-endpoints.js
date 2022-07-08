@@ -22,16 +22,18 @@ Before(async function() {
   };
   await server.start();
   await sleep(1000);
+});
 
+Given("Inventory have item {int} with data {string}", async function(itemId, key) {
   nock(inventoryUrl)
-    .get('/item/1')
-    .times(Infinity)
-    .reply(200, { name: 'item 1', price: 10, inStock: 100 });
+    .get('/item/' + itemId)
+    .reply(200, data[key]);
+});
 
+Given("Account have user {int} with balance of {int}", async function(accountId, balance) {
   nock(accountUrl)
-    .get('/account/1')
-    .times(Infinity)
-    .reply(200, { name: 'account 1', balance: 100 })
+    .get('/account/' + accountId)
+    .reply(200, { name: 'Account ' + accountId, balance });
 });
 
 When("I order {int} pieces of item with id {int}", async function (quantity, itemId) {

@@ -2,10 +2,52 @@ version: "3.2"
 services:
   rabbitmq:
     image: rabbitmq:3-management-alpine
-    container_name: 'rabbitmq'
     ports:
         - 5672:5672
         - 15672:15672
     volumes:
         - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
         - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:15672"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  inventory_service:
+    build: ./inventory-service
+    depends_on:
+      - rabbitmq
+    environment:
+      - AMQP_URL=amqp://rabbitmq
+
+  account_service:
+    build: ./account-service
+    depends_on:
+      - rabbitmq
+    environment:
+      - AMQP_URL=amqp://rabbitmq
+  
+  order_capturing_service:
+    build: ./order-capturing-service
+    ports:
+      - 3000:3000
+    depends_on:
+      - rabbitmq
+      - account_service
+      - inventory_service
+    environment:
+      - AMQP_URL=amqp://rabbitmq
+      - ACCOUNT_URL=http://account_service:3000
+      - INVENTORY_URL=http://inventory_service:3000
+    restart: on-failure
+  
+  gateway:
+    build: gateway
+    ports:
+      - 8080:80
+    
+    depends_on:
+      - order_capturing_service
+      - account_service
+      - inventory_service

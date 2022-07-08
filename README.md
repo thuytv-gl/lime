@@ -1,4 +1,4 @@
-# CMC Assignment
+# Micoservices boilerplate
 
 ## Requirements
 - Architecture: microservices
@@ -18,7 +18,12 @@
 - Test Framework: Cucumber + lcov
 - Code lint: Eslint + Airbnb specs
 - Logging: text file, format: [level][date][correlationId][targetFile]: content
-- Apigateway: Nginx
+- Api Gateway: Nginx
+
+## Start testing
+```
+docker-compose up --build
+```
 
 ## Services folder structure
 ```tree

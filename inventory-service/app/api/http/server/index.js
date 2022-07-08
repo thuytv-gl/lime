@@ -51,6 +51,8 @@ function createServer() {
   });
 
   initRoutes(app);
+  app.get('/ping', (_, res) => res.end('pong'));
+  app.get('/swagger.yaml', (_, res) => res.sendFile(__dirname + '/swagger.yaml'));
 
   app.use((err, req, res, next) => {
     logger.error({ msg: err, correlationId: req.correlationId });
