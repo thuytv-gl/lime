@@ -25,6 +25,17 @@
 docker-compose up --build
 ```
 
+go to [http://localhost:8080](http://localhost:8080) (swager ui entrypoint)  
+
+placing new order
+- supported clientId: 1 -> 10
+- supported itemId: 1 -> 10
+
+order status could be:
+- ORDERD: when all informations are valid
+- OOF: Item out of stock
+- BIS: User balance in short (not enough to order)
+
 ## Services folder structure
 ```tree
 .
