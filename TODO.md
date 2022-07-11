@@ -9,7 +9,7 @@
 - [x] inventory service  
 - [x] setup testing
 - [x] setup database (thinking about sqlite)
-- [ ] document apis with swagger
-- [ ] setup api-gateway with nginx
+- [x] document apis with swagger
+- [x] setup api-gateway with nginx
 - [ ] implement user authentication
 - [ ] use Husky to add pre-commit hooks (maybe run test before commit)
